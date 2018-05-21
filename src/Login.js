@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import  { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { login } from './redux-stuff/reducer';
 
 class Login extends Component {
   constructor() {
@@ -16,12 +17,16 @@ class Login extends Component {
   }
 
   render() {
-    const { loggedInAs, isCCHolder, setLoggedInAs } = this.props;
+    const { loggedInAs, isCCHolder, myLoginWithDispatch } = this.props;
 
     return (
       <div className="login">
         {!loggedInAs && <div>
-          Log in as <input onChange={(e) => this.updateLoginName(e.target.value)} /> <button className="button" onClick={() => setLoggedInAs(this.state.loginName)}>Go</button>
+          Log in as <input onChange={(e) => this.updateLoginName(e.target.value)} /> 
+            <button 
+            className="button" 
+            onClick={() => myLoginWithDispatch(this.state.loginName)}
+            >Go</button>
         </div>}
         {loggedInAs && <div>
           Welcome, {loggedInAs}! {isCCHolder && "(CC holder)"}
@@ -38,11 +43,15 @@ const mapStateToProps = storeData => {
   }
 }
 
+const mapDispatchToProps = {
+  myLoginWithDispatch: login,
+}
+
 // We can connect our component in 3 lines like this...
-const connector = connect(mapStateToProps); // returns a function
+// const connector = connect(mapStateToProps); // returns a function
 // ConnectedLogin is captial because it is a component
-const ConnectedLogin = connector(Login);
-export default ConnectedLogin;
+// const ConnectedLogin = connector(Login);
+// export default ConnectedLogin;
 
 // ... or 1 line like this:
-// export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
