@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 class Login extends Component {
   constructor() {
@@ -34,15 +34,10 @@ class Login extends Component {
 const mapStateToProps = storeData => {
   return {
     loggedInAs: storeData.loggedInAs,
-    isCCHolder: storeData.isCreditCardHolder
-  }
-}
+    isCCHolder: storeData.isCreditCardHolder,
+  };
+};
 
-// We can connect our component in 3 lines like this...
-const connector = connect(mapStateToProps); // returns a function
-// ConnectedLogin is captial because it is a component
+const connector = connect(mapStateToProps);
 const ConnectedLogin = connector(Login);
 export default ConnectedLogin;
-
-// ... or 1 line like this:
-// export default connect(mapStateToProps)(Login);
